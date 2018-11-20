@@ -1,0 +1,294 @@
+\documentclass[12pt]{article}
+
+\usepackage{sbc-template}
+
+\usepackage{graphicx,url}
+
+\usepackage{listings}
+
+\usepackage[brazil]{babel}   
+%\usepackage[latin1]{inputenc}  
+\usepackage[utf8]{inputenc}  
+% UTF-8 encoding is recommended by ShareLaTex
+
+\usepackage{fancyhdr}
+\usepackage[super]{nth}
+
+
+\sloppy
+
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+\fancyhead[C]{\thepage}
+\fancyfoot[C]{
+{
+    {\scriptsize 
+        \begin{tabular}[t]{@{}p{13.8cm}@{}}
+            iSys: Revista Brasileira de Sistemas de Informação (iSys: Brazilian Journal of Information Systems) http://seer.unirio.br/index.php/isys/
+        \end{tabular}
+    }
+}
+}
+\fancypagestyle{plain}{
+    \fancyhead[C]{}
+	\fancyhead[L]{
+        {\scriptsize
+            \begin{tabular}[t]{@{}l@{}}
+                Submission date: 01/Dec/2018\\
+                Resubmission date: dd/month/year\\
+                \bigskip
+                Camera ready submission date: dd/month/year\\
+                Section: regular article\\
+            \end{tabular}
+        }
+    }
+    \fancyhead[R]{
+        {\scriptsize
+            \begin{tabular}[t]{@{}r@{}}
+                \nth{1} round notification: dd/month/year\\
+                \nth{2} round notification: dd/month/year\\
+                Available online: dd/month/year\\
+                Publication date: dd/month/year\\ 
+            \end{tabular}
+        }
+    }
+	\fancyfoot[C]{ 
+    	{\scriptsize
+            Cite as:
+            \begin{tabular}[t]{@{}p{13.8cm}@{}}
+                Araujo, G. M., \& Holanda, M.  (2018). Uso de banco de dados orientado a grafos na detecção de fraudes nas cotas para exercício da atividade parlamentar. iSys: Revista Brasileira de Sistemas de Informação (Brazilian Journal of Information Systems), Vol(num), pp-pp. DOI: xxxxxxxxxxxx
+            \end{tabular}
+        }
+    }
+}
+\pagestyle{fancy}
+
+
+
+\title{Uso de banco de dados orientado a grafos na detecção de fraudes nas cotas para exercício da atividade parlamentar\\
+\medskip
+Title: Use of graph-oriented database in the detection of fraud in the quotas for the exercise of parliamentary activity\\
+\medskip
+Artigo submetido à Edição Especial sobre Transparência em Sistemas de Informação}
+
+
+\author{Gabriel M. Araujo\inst{1}, Maristela Holanda\inst{1}}
+
+
+\address{Departamento de Ciência da Computação -- Universidade de Brasília (UnB)\\
+  Brasília, DF -- Brasil
+\email{gabrieljustware@gmail.com, mholanda@unb.br}
+}
+
+\begin{document} 
+\maketitle
+\thispagestyle{plain}
+
+% \newpage 
+
+\begin{abstract}
+  This paper proposes the use of graph oriented databases to detect possible fraud in Quota for
+the Exercise of Parliamentary Activity, and the relationships between CEAP and open data from TSE regarding donations to brazilian elections in 2014. The use
+of these technologies, facilitates the manipulation of closely related data, both in
+terms of query complexity, and information visualization. The proposal in question was
+validated with a case study, using the open data of the Quota for the Exercise of the
+Parliamentary Activity of the Chamber of Deputies, and open data from TSE. An ETL was developed to extract
+the data and fill the database, then the queries were made to detect possible fraud and to obtain information about the data. Finally, a web system was developed with useful information for Brazilian society, regarging the open data of CEAP and TSE along with analyzes for possible fraud detection.
+\end{abstract}
+
+\begin{keywords}
+Graph; Fraud; NoSQL; Brazilian Elections; Database.
+\end{keywords}
+
+\begin{resumo} 
+  Este artigo propõe o uso da tecnologia de banco de dados orientado a grafos para a
+detecção de possíveis fraudes na Cota para o Exercício da Atividade Parlamentar (CEAP), e o relacionamento da CEAP com dados abertos do TSE referentes as doações nas eleições de 2014. O uso dessas tecnologias facilita a manipulação de dados relacionados entre si, tanto em questão de complexidade na consulta, quanto em
+relação a visualização da informação. A proposta em questão foi validada com um estudo
+de caso, utilizando os dados abertos da Cota para o Exercício da Atividade Parlamentar da
+Câmara dos Deputados, e os dados abertos fornecidos pelo TSE. Foi desenvolvido um ETL para extrair os dados e popular o banco de dados,
+em seguida as consultas foram realizadas para detectar as possíveis fraudes e obter informações a respeito dos dados. Finalmente, um sistema web foi desenvolvido com informações importantes para a sociedade brasileira, a respeito dos dados da CEAP e do TSE junto com as análises para detecção de possíveis fraudes.
+\end{resumo}
+
+\begin{palavraschave} 
+Grafo; Fraude; NoSQL; Eleições Brasileiras; Banco de dados.
+\end{palavraschave}
+
+\section{1. Introdução} \label{sec:intro}
+	A política de transparência no Brasil surgiu há alguns anos em nossa sociedade, e tem como principal objetivo auxiliar na confiança da população sobre os serviços prestados pelo governo. O Brasil recentemente passou por um grande caso de corrupção, que foi a lava jato, e políticas de transparência também tem suas vertentes no combate a corrupção como é apresentado em \cite{diirrcombate}. O estudo feito por \cite{abramo2000relaccoes} compara as relações entre índices de percepção de corrupção
+e outros indicadores de alguns países latino americanos, e o Brasil se encontra na quadragésima nona posição em um ranking de corrupção dentre 90 países. Em \cite{filgueiras2009tolerancia} é feita uma pesquisa de opinião, na qual a Câmara dos Vereadores e a Câmara dos Deputados são as instituições com maior percepção de
+corrupção.
+
+	A análise feita por \cite{filgueiras2009tolerancia}, direcionou a escolha do conjunto de dados utilizado neste artigo, que foi a Cota para o Exercício da Atividade Parlamentar (antiga verba indenizatória). É uma cota única mensal destinada a custear os gastos dos deputados exclusivamente vinculados ao exercício da atividade parlamentar. O Ato da Mesa número 43 de 2009, detalha as regras para o uso da CEAP, entretanto um deputado pode realizar algumas transações que não são observadas facilmente pelos responsáveis em fiscalizar essas transações. Por exemplo, o artigo 4, parágrafo 13 do Ato da Mesa número 43 de 2009, diz: \textit{"Não se admitirá a utilização da Cota para ressarcimento de despesas relativas a bens fornecidos ou serviços prestados por empresa ou entidade da qual o proprietário ou detentor de qualquer participação seja o Deputado ou parente seu até terceiro grau."} Dessa forma, o Deputado pode realizar transações que violam essa regra, sendo inviável verificar as relações de parentesco de cada Deputado em cada transação, especialmente se utilizarem tecnologias inadequadas.
+	
+	Em \cite{van2017graph}, é feito um estudo de caso utilizando um banco de dados orientado a grafos, que busca identificar fraudes em processos licitatórios no governo brasileiro. Nesse estudo de caso, é feito uma comparação entre a implementação utilizando um Sistema Gerenciador de Banco de dados (SGBD) orientado a grafos e um SGBD relacional. Essa comparação demonstra como as consultas em um banco de dados relacional ficam grandes e complexas, enquanto em um banco de dados orientado a grafos as consultas são menores, mais legíveis e fáceis de entender. Essa diferença está bastante relacionada com a estrutura que cada SGBD utiliza para representar os dados, de forma que o impacto vai além do tamanho e complexidade da consulta, mas abrange também a velocidade das consultas, bem como a facilidade de visualização das respostas.
+
+	Portanto, justifica-se o uso de um banco de dados orientado a grafo para identificar os relacionamentos envolvendo cada transação de um Deputado. Isso se deve porque os
+relacionamentos são evidenciados na estrutura de um grafo de forma muito mais natural
+e simples, onde cada entidade é representada como um nó do grafo e se relaciona com
+outras entidades por meio de arestas. Devido a essas particularidades, os bancos de dados
+em grafo vem ganhando bastante popularidade, tanto em pesquisas científicas, quanto em uso comercial, como mostra os trabalhos feitos por \cite{noble2003graph} e \cite{chau2005fraud}.
+
+	O objetivo deste artigo é fornecer um portal de transparência a respeito dos dados abertos da CEAP, e dos dados de doações para as campanhas dos deputados federais nas eleições de 2014. Para isso, foi construído um banco de dados baseado em grafo para evidenciar relacionamentos nas transações dos Deputados que violam o artigo 4, parágrafo 13 do Ato da Mesa
+número 43 de 2009, que regula a CEAP, e realizar o cruzamento com os dados abertos de doações das eleições de 2014, em busca de relacionamentos entre parlamentares e empresas. Para a implementação deste banco de dados, foi utilizado o SGBD NoSQL OrientDB. Para validar o modelo do banco de dados, algumas consultas de vínculos entre os deputados e as empresas são apresentadas.
+
+	Este artigo está dividido nas seguintes seções: a Seção 2 introduz o referencial teórico, abordando o tema de banco de dados orientado a grafos; a Seção 3 apresenta alguns trabalhos relacionados; na Seção 4 é apresentado em detalhes o desenvolvimento do projeto, e por fim, a Seção 5 apresenta as conclusões deste trabalho.
+	
+\section{2. Banco de dados orientado a grafos} \label{sec:contribuicoes}
+
+\subsection{2.1 Definição de um grafo} \label{sec:grafodef}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=.5\textwidth]{simple_graph}
+\caption{Exemplo de uma estrutura de grafo.}
+\label{graph_definition}
+\end{figure}
+
+O primeiro passo para entender um SGBD orientado a grafos é conhecer a estrutura de um grafo. A definição de um grafo pode ser feita da seguinte forma: um grafo \(G\) é uma tripla ordenada \((V(G), E(G), \psi g)\), que consiste de um conjunto não vazio \(V(G)\) de vértices, um conjunto \(E(G)\), disjunto do conjunto \(V(G)\), de arestas, e uma função de incidência \(\psi g\) que associa cada aresta de \(G\) um par não ordenado (não necessariamente distinto) de vértices de \(G\). Dessa forma, se \(e\) é uma aresta e \(u\) e \(v\) são vértices, de tal modo que \(\psi g(e) = uv\), então, diz-se que \(e\) faz a união de \(u\) e \(v\); Os vértices \(u\) e \(v\) são chamados de extremidades de \(e\) \cite{bondy1976graph}.
+
+	A Figura \ref{graph_definition} apresenta um grafo, em que o conjunto \(V(G)\) de vértices é não vazio e composto por três vértices, \(V(G)=\{a,b,c\}\). Já o conjunto \(E(G)\) de arestas é composto por três arestas, \(E(G)=\{e1,e2,e3\}\). De forma que a função de incidência \(\psi g\) é definida da seguinte maneira: \(\psi g(e1)= ab\), \(\psi g(e2)= ac\) e \(\psi g(e3)= bc\). Portanto, a definição formal do grafo acima é \((\{a,b,c\}, \{e1,e2,e3\}, \psi g(e1)= ab\), \(\psi g(e2)= ac\) \(\psi g(e3)= bc)\).
+	
+\subsection{2.2 SGBD NoSQL orientado a grafos} \label{sec:grafoSGBD}
+
+Os SGBD NoSQL orientado a grafos armazenam os dados em uma estrutura de grafo. Resumidamente, um grafo é um conjunto de nós e arestas, em que os nós são os objetos e as arestas representam o relacionamente entre dois objetos (nós). Esses SGBD usam a técnica conhecida como  \textit{index free adjacency}, em que cada nó possui um ponteiro diretamente para nós adjacentes. Essa técnica permite que uma grande quantidade de nós seja percorrida de forma eficiente \cite{nayak2013type}.
+	
+	As consultas são feitas seguindo a ideia de percorrimento do grafo, o que torna esses SGBD mais eficientes que SGBD relacionais. O principal ponto de seu uso é em dados que são bastante relacionados entre si, pois a estrutura de um grafo expõe naturalmente os relacionamentos entre os objetos. O maior representante dessa categoria de SGBD é o Neo4j, que em sua versão livre não suporta a distribuição dos dados. Por esse motivo o OrientDB foi escolhido para a implementação do banco de dados deste artigo.
+	
+\subsection{2.3 OrientDB} \label{sec:orientDB}
+
+O OrientDB é um SGBD de código aberto sob a licensa Apache. Ele é um SGBD NoSQL multi modelo, com suporte a uma arquitetura distribuída e orientado a grafos. Sendo assim o OrientDB suporta operações com documentos, chave/valor e grafos. Essa característica garante flexibilidade para manipular os dados, sendo possível armazenar os dados tanto como grafos ou como documentos no mesmo banco de dados. 
+
+O OrientDB é implementado na linguagem java, tendo sua primeira versão disponível no ano de 2010. Ele possui alta flexibilidade para definir o esquema do banco de dados, podendo ser \textit{Schema-free}, \textit{Schema-hybrid} ou \textit{Schema-full}. A sua linguagem de consulta é derivada do SQL e utiliza o modelo de transações ACID, isso demonstra que o OrientDB presa pela integridade dos dados ao mesmo tempo que também fornece um suporte a particionamento dos dados.
+
+Todas essas características fazem com que o OrientDB seja um SGBD bastante flexível e confiável. As operações utilizando grafos em específico, vem ganhando bastante visibilidade pois funciona muito bem em certos domínios de aplicação. Como foi mencionado em \cite{Graphpopularity} a popularidade dos SGBD orientados a grafos vem crescendo bastante nos últimos anos, e essas características ajudam a explicar o porque de banco de dados como o OrientDB e Neo4j estarem sendo utilizados em tantas aplicações.
+
+\section{3. Trabalhos relacionados} \label{sec:relacionados}
+
+Na literatura, é possível encontrar alguns trabalhos acadêmicos onde banco de dados é utilizado para detecção de fraude. O trabalho desenvolvido por \cite{van2017graph} propõe a modelagem para banco de dados em grafo utilizada neste artigo. Além disso, para validar a modelagem proposta é feito um estudo de caso para detecção de fraudes em processos licitatórios do governo brasileiro com o uso do Neo4J. 
+
+Outros trabalhos que utilizam estruturas de grafo como base para detecção de anomalias e fraudes incluem \cite{noble2003graph} e \cite{chau2005fraud}. O primeiro introduz duas técnicas para detecção de anomalias baseadas em grafos, enquanto o segundo bucas detectar fraudes em leilões ao analisar o histórico de transações que existe no formato de um grafo.
+
+Diferentemente dos trabalhos apresentados nesta seção, este artigo faz o uso do OrientDB como SGBD, e do conjuntos de dados da CEAP e do TSE, apontando o impacto do uso de estruturas de grafo na transparência, além de ter por principal objetivo fornecer informações de forma transparente por meio de um portal.
+
+\section{4. Desenvolvimento} \label{sec:desenvolvimento}
+
+	Esta seção descreve o processo de desenvolvimento desta pesquisa. Inicialmente, foram obtidos os dados abertos da CEAP no site da Câmara dos Deputados, e as receitas dos candidatos a deputado federal nas eleições de 2014 no site do TSE. Em seguida, foram feitas algumas transformações nos dados antes da fase de carregamento para o OrientDB. Foi desenvolvido um modelo de dados seguindo a modelagem proposta no trabalho de \cite{mdgnosql}, que representa os dados persistidos no OrientDB. Em seguida, foram desenvolvidas as consultas para obter os relacionamentos entre os dados da CEAP e os dados das receitas nas eleições de 2014. Por fim, foi desenvolvido o portal que utiliza os dados e consultas previamente construídos para fornecer informações a população.
+	
+\subsection{4.1 Dados Abertos} \label{sec:dadosabertos}
+	Foram utilizadas duas bases de dados abertos para o desenvolvimento deste trabalho. A primeira é referente aos dados da cota para exercício da atividade parlamentar, e pode ser obtida no site da Câmara dos Deputados\footnote{http://www2.camara.leg.br/transparencia/cota-para-exercicio-da-atividade-parlamentar/dados-abertos-cota-parlamentar}. A segunda base diz respeito as doações que cada deputado recebeu de empresas ou pessoas físicas, para a campanha eleitoral de 2014, e pode ser obtida no seguinte site do Tribunal Superior Eleitoral \footnote{http://www.tse.jus.br/eleitor-e-eleicoes/estatisticas/repositorio-de-dados-eleitorais-1/repositorio-de-dados-eleitorais}.
+	
+	A iniciativa de disponibilizar dados e informações por meio de portais tem como um dos objetivos melhorar a confiança da população nos serviços prestados pelo governo. A transparência governamental é, portanto, uma ótima iniciativa e extremamente benéfica para a população. Porém ainda existem diversos pontos a serem melhorados para que estudos sejam feitos de forma mais rápida e precisa.
+	
+	Trabalhar com esses dados abertos se tornou um desafio, porque, cada instituição fornece os dados da própria maneira, essa falta de padronização dificultou bastante a fase de carregamento dos dados. Isso se deve ao fato de que a base de dados do TSE fornece o cpf de cada candidato, já a base da CEAP não fornece um identificador único para o deputado. Portanto, no momento de realizar o cruzamento não existia um identificador único em ambas as bases para fazer o relacionamento entre as bases de dados. Para resolver esse problema, se fez necessário realizar o cruzamento entre as bases por meio do nome de cada candidato, o que também foi um desafio, já que cada base utiliza um nome diferente para cada candidato. Os detalhes do processo de extração, transformação e carregamento serão fornecidos na Seção \ref{sec:etl}, o ponto principal a ser levantado é que trabalhar com dados abertos no Brasil, para realizar estudos e pesquisas, pode se tornar um desafio devido a falta de padronização entre as bases de dados.
+	
+\subsection{4.2 Modelo de Dados} \label{sec:modelodados}
+
+	A modelagem dos dados seguiu o modelo GRAPHED \cite{mdgnosql}. A modelagem tem como objetivo dar uma visão geral de como os dados estão organizados no banco de dados, suas propriedades e relacionamentos. Dessa forma, o modelo de dados desenvolvido busca evidenciar as propriedades dos parlamentares, tais como: nome, partido e unidade federativa. Além disso apresenta características que identificam uma empresa como nome e CNPJ, e características atreladas a transação que o deputado faz com uma empresa como o valor e descrição da transação.
+	
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.79\textwidth]{CEAP-v3.png}
+\caption{Modelo de dados seguindo o formato GRAPHED.}
+\label{fig:modeloDeDados}
+\end{figure}
+
+A Figura \ref{fig:modeloDeDados} apresenta a modelagem desenvolvida. como pode-se observar, foram propostas quatro classes que representam as instâncias dos vértices no banco de dados, que são: Parlamentar, Transação, Empresa fornecedora e Pessoa. As setas que saem de uma classe a outra, representa um relacionamento entre essas classes, que no grafo será representado por uma aresta. Dessa forma, uma instância de um parlamentar, realiza transações, que por sua vez está relacionada com uma empresa fornecedora. Esse caminho descrito, representa as transações da CEAP da Câmara dos Deputados. De forma análoga, uma empresa fornecedora realiza transações, que por sua vez favorece um certo parlamentar. Esse caminho representa os dados das doações das empresas para os deputados nas eleições de 2014, fornecido pelo TSE. 
+
+Os demais relacionamentos, como "socio-de" e "parente-de" tem por objetivo identificar possíveis fraudes na CEAP, uma vez que um parlamentar não pode utilizar a verba da CEAP com serviços de uma empresa que é sócio. Esses dois caminhos, se apresentaram como o maior desafio para o desenvolvimento do trabalho, uma vez que dados de parentesco dos parlamentares não são dados abertos.
+
+\subsection{4.3 ETL} \label{sec:etl}
+
+	Após a modelagem dos dados, foi desenvolvido um ETL (\textit{Extract, Transform, Load}) utilizando a linguagem java, para extrair, transformar e carregar os dados para o OrientDB. O OrientDB foi desenvolvido na linguagem java, e executa portanto na JVM. Por esse motivo, o ETL foi feito em java, uma vez que, o OrientDB possui uma boa interface com essa linguagem. O ETL pode ser acessado por meio desse link no github\footnote{https://github.com/gabrielmm1234/CEAP-ETL}.
+	
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.5\textwidth]{etlfluxo.png}
+\caption{Fluxo de extração, transformação e carregamento para o OrientDB.}
+\label{fig:etlfluxo}
+\end{figure}
+
+O fluxo do ETL é exemplificado na Figura \ref{fig:etlfluxo}. Dessa forma o fluxo se organiza em ler linha a linha do csv fornecido pela Câmara dos Deputados, e criar os vértices e arestas com base em certas condições. Por exemplo, não se pode ter mais de um vértice representando um parlamentar, mas no arquivo fornecido existem diversas transações para um mesmo deputado. O ponto chave desse processo são as associações entre os parlamentares com as transações e as empresas que forneceram o serviço. Criando esse vínculo, é possível por meio de consultas de casamento de padrões identificar possíveis fraudes ou padrões de transação e doação envolvendo um mesmo parlamentar e uma mesma empresa. A estrutura de um grafo fornece naturalmente os relacionamentos de forma simples e intuitiva, sendo uma ótima alternativa a estrutura relacional, que é muito comum atualmente. Além disso, a visualização da informação se torna mais clara e objetiva o que é uma ótima característica ao se tratar de transparência em dados governamentais.
+
+O arquivo de dados da CEAP no ano de 2017 possui um total de 209496 transações, o carregamento dessas transações levou cerca de 16 horas em um notebook com Ubuntu 16-04 LTS, Intel Core i5-5200U CPU 2.20GHz * 4 e 6 Gb de RAM.
+
+Já o arquivo das doações passou por um processo de filtragem, para obter somente os dados referentes aos deputados federais dos estados de Minas Gerais e Distrito Federal. Esse filtro para obter deputados federais dos dois estados foi feito para validar mais rapidamente a arquitetura e proposta de solução, no futuro demais estados serão adicionados no banco de dados. O arquivo já filtrado possui um total de 19302 doações de empresas a candidatura de diversos deputados. Claramente, somente alguns desses deputados foram de fato eleitos, e portanto deputados que não se encontravam na base da CEAP foram ignorados. O tempo total de processamento desse arquivo foi de 5 horas.
+
+\subsection{4.4 Resultados das consultas} \label{sec:resultados parciais}
+	
+	Finalizado a obtenção e carregamento dos dados no OrientDB, foram feitas consultas em busca dos relacionamentos entre as empresas doadoras e os deputados de Minas Gerais e Distrito Federal que utilizaram a CEAP com essas mesmas empresas. O OrientDB possui uma linguagem de consulta baseada na linguagem SQL.
+	
+	A consulta é baseada no conceito de casamento de padrão, muito comum em linguagens funcionais. Dessa forma, para obter um certo padrão dentro do grafo o OrientDB fornece a função MATCH, como mostra a Consulta \ref{lst:label}.
+	
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.85\textwidth]{orient.png}
+\caption{Resultado do cruzamento entre dados da CEAP e do TSE.}
+\label{fig:orient}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.85\textwidth]{padrao.png}
+\caption{Padrão de relacionamento entre dados da CEAP e do TSE.}
+\label{fig:padrao}
+\end{figure}
+
+\begin{lstlisting}[label={lst:label}, caption={Consulta de relacionamento de doações entre deputados e empresas.},captionpos=b, language=sql]
+MATCH 
+  {class:Parlamentar, as:p} -RealizaTransacao-> 
+  	{class:Transacao, as:t} 
+       -FornecidaPor-> {class:EmpresaFornecedora, as:e},
+  {as:e} -RealizaTransacao-> {class:Transacao, as:t2} 
+  	   -FornecidaPara-> {as:p}
+RETURN $elements
+\end{lstlisting}
+
+A Consulta \ref{lst:label} procura um padrão onde o mesmo é definido por parlamentares chamados de "p", que realizam transações da CEAP "t", fornecidas por uma certa empresa "e". Além disso essa mesma empresa "e", realiza uma transação de doação "t2", que é fornecida para o mesmo parlamentar "p" definido no início da sentença. O resultado dessa consulta nos deputados de Minas Gerais e Distrito federal é apresentado na Figura \ref{fig:orient}.
+
+O padrão definido foi encontrado para um total de sete parlamentares todos em Minas Gerais. A Figura \ref{fig:padrao} mostra em mais detalhes como o padrão é definido.A partir da orientação das setas, é possível perceber que o parlamentar representado pelo vértice marrom claro e com o ícone de uma pessoa, realizou três transações, representadas pelo vértice roxo claro, com uma certa empresa representada pelo vértice marrom escuro. Sendo que essa empresa fez uma doação para esse parlamentar. No total, foram 44 transações registradas na CEAP, e 96 doações registradas pelo TSE que estão seguindo esse padrão.
+
+Foi feita uma consulta para obter os padrões que podem ser considerados fraudes na CEAP, e testada com dados fictícios. No caso a consulta busca por deputados que usaram a CEAP com empresas das quais são sócios, como apresentada na consulta \ref{lst:label2}.
+
+\begin{lstlisting}[label={lst:label2}, caption={Consulta de relacionamento de uso da CEAP entre deputados e empresas nas quais o deputado é sócio.},captionpos=b, language=sql]
+MATCH 
+  {class:Parlamentar, as:p} -RealizaTransacao-> 
+  	{class:Transacao, as:t} 
+    	-FornecidaPor-> {class:EmpresaFornecedora, as:e},
+  {as:p} -Socio_De-> {as:e}
+RETURN $elements
+\end{lstlisting}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.85\textwidth]{socios.png}
+\caption{Padrão de uma transação fraudulenta com dados fictícios.}
+\label{fig:socios}
+\end{figure}
+
+Como mostra a Figura \ref{fig:socios}, a consulta consegue localizar um padrão de transações efetuadas entre um deputado e uma empresa, na qual o deputado faz parte do quadro de sócios. A forma com que o grafo é apresentado visualmente, pode facilitar bastante o entendimento dos relacionamentos, de forma que fica claro que um deputado, representado pelo círculo com o ícone de uma pessoa, é sócio de uma empresa que prestou serviços com o dinheiro da CEAP. Dessa forma, a visualização gráfica, é uma das maiores contribuições de um SGBD orientado a grafos para a transparência, pois, como foi mencionado na Seção \ref{sec:intro} a visualização dos vínculos em um grafo é mais simples e intuitiva do que uma estrutura de tabela utilizada nos SGBD relacionais.
+
+Outra consulta feita com o objetivo de encontrar padrões que violam as regras da CEAP, diz respeito a transações feitas por parlamentares no qual algum familiar é sócio da empresa envolvida na transação. Utilizando dados fictícios, a Figura \ref{fig:familia_socio} apresenta esse padrão. A consulta \ref{lst:familia_sql} segue o mesmo formato das consultas anteriores utilizando a função MATCH para se beneficiar do casamento de padrões.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.85\textwidth]{familia_socio}
+\caption{Padrão de uma Transação Fraudulenta na qual um Parente do Parlamentar é Sócio da Empresa.}
+\label{fig:familia_socio}
+\end{figure}
+
+\begin{lstlisting}[label={lst:familia_sql}, caption={Consulta de Relacionamento de Uso da CEAP entre Deputados e Empresas, em que um Parente do Deputado é Sócio da Empresa.},captionpos=b, language=sql]
+MATCH 
+  {class:Parlamentar, as:p} -RealizaTransacao-> 
+  {class:Transacao, as:t} 
+       -FornecidaPor-> {class:EmpresaFornecedora, as:e},
+  {as:p} -Parente_De-> {class:Pessoa, as:p2} -Socio_De-> {as:e}
+RETURN $elements
+\end{lstlisting}
+
+\subsection{4.4 Portal de Informações} \label{sec:portal info}
+
+
+\bibliographystyle{sbc}
+\bibliography{sbc-template}
+
+\end{document}

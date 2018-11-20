@@ -1,0 +1,65 @@
+\begin{thebibliography}{}
+
+\bibitem[Abramo 2000]{abramo2000relaccoes}
+Abramo, C.~W. (2000).
+\newblock Rela{\c{c}}{\~o}es entre {\'\i}ndices de percep{\c{c}}{\~a}o de
+  corrup{\c{c}}{\~a}o e outros indicadores em onze pa{\'\i}ses da am{\'e}rica
+  latina.
+\newblock {\em SPECK, Bruno W. et al. Os custos da corrup{\c{c}}{\~a}o.
+  Cadernos Adenauer}, (10):47--62.
+
+\bibitem[Bondy et~al. 1976]{bondy1976graph}
+Bondy, J.~A., Murty, U. S.~R., et~al. (1976).
+\newblock {\em Graph theory with applications}, volume 290.
+\newblock Citeseer.
+
+\bibitem[Chau and Faloutsos 2005]{chau2005fraud}
+Chau, D. and Faloutsos, C. (2005).
+\newblock Fraud detection in electronic auction.
+\newblock In {\em European Web Mining Forum (EWMF 2005)}, page~87.
+
+\bibitem[Diirr and Cappelli 2017]{diirrcombate}
+Diirr, B. and Cappelli, C. (2017).
+\newblock Combate {\`a} corrup{\c{c}}{\~a}o atrav{\'e}s de relacionamentos
+  interorganizacionais transparentes.
+
+\bibitem[Filgueiras 2009]{filgueiras2009tolerancia}
+Filgueiras, F. (2009).
+\newblock A toler{\^a}ncia {\`a} corrup{\c{c}}{\~a}o no brasil: uma antinomia
+  entre normas morais e pr{\'a}tica social.
+\newblock {\em Opini{\~a}o P{\'u}blica}, 15(2):386--421.
+
+\bibitem[Gelbmann 2014]{Graphpopularity}
+Gelbmann, M. (2014).
+\newblock Graph dbmss are gaining in popularity faster than any other database
+  category.
+\newblock \url{https://db-engines.com/en/blog_post/26}.
+\newblock Acessado em janeiro de 2018.
+
+\bibitem[Nayak et~al. 2013]{nayak2013type}
+Nayak, A., Poriya, A., and Poojary, D. (2013).
+\newblock Type of nosql databases and its comparison with relational databases.
+\newblock {\em International Journal of Applied Information Systems},
+  5(4):16--19.
+
+\bibitem[Noble and Cook 2003]{noble2003graph}
+Noble, C.~C. and Cook, D.~J. (2003).
+\newblock Graph-based anomaly detection.
+\newblock In {\em Proceedings of the ninth ACM SIGKDD international conference
+  on Knowledge discovery and data mining}, pages 631--636. ACM.
+
+\bibitem[Van~Erven et~al. 2018]{mdgnosql}
+Van~Erven, G., Silva, W., Carvalho, R., and Holanda, M. (2018).
+\newblock Graphed: A graph description diagram for graph databases.
+\newblock In Rocha, {\'A}., Adeli, H., Reis, L.~P., and Costanzo, S., editors,
+  {\em Trends and Advances in Information Systems and Technologies}, pages
+  1141--1151, Cham. Springer International Publishing.
+
+\bibitem[Van~Erven et~al. 2017]{van2017graph}
+Van~Erven, G.~C., Carvalho, R.~N., de~Holanda, M.~T., and Ralha, C. (2017).
+\newblock Graph database: A case study for detecting fraud in acquisition of
+  brazilian government.
+\newblock In {\em Information Systems and Technologies (CISTI), 2017 12th
+  Iberian Conference on}, pages 1--6. IEEE.
+
+\end{thebibliography}
