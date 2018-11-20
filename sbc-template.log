@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.26)  20 NOV 2018 20:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.26)  20 NOV 2018 21:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -759,21 +759,122 @@ Underfull \hbox (badness 7397) has occurred while \output is active
 ys: Bra-zi-lian Jour-nal of In-for-ma-tion Sys-tems)
  []
 
-[10 <./socios.png> <./familia_socio.png>] (./sbc-template.bbl)
+[10 <./socios.png> <./familia_socio.png>]
+Underfull \hbox (badness 1533) in paragraph at lines 290--291
+\OT1/ptm/m/n/12 O sis-tema web de-sen-vol-vido tem dois im-por-tan-tes ob-je-ti
+-vos, que s[]ao: for-ne-cer
+ []
+
+<sistema_ceap.png, id=53, 1371.1225pt x 770.88pt>
+File: sistema_ceap.png Graphic file (type png)
+ <use sistema_ceap.png>
+Package pdftex.def Info: sistema_ceap.png used on input line 298.
+(pdftex.def)             Requested size: 213.39568pt x 119.96744pt.
+
+<ceap-tse.png, id=54, 1371.1225pt x 770.88pt>
+File: ceap-tse.png Graphic file (type png)
+ <use ceap-tse.png>
+Package pdftex.def Info: ceap-tse.png used on input line 307.
+(pdftex.def)             Requested size: 256.07741pt x 143.97504pt.
+
+<chart_1.png, id=55, 1204.5pt x 803.0pt>
+File: chart_1.png Graphic file (type png)
+ <use chart_1.png>
+Package pdftex.def Info: chart_1.png used on input line 317.
+(pdftex.def)             Requested size: 256.07741pt x 170.71794pt.
+
 Underfull \hbox (badness 7397) has occurred while \output is active
 []\OT1/ptm/m/n/8 iSys: Re-vista Bra-si-leira de Sis-te-mas de Informa[][]ao (iS
 ys: Bra-zi-lian Jour-nal of In-for-ma-tion Sys-tems)
  []
 
-[11] (./sbc-template.aux) ) 
+[11 <./sistema_ceap.png>] <chart_2.png, id=59, 1204.5pt x 803.0pt>
+File: chart_2.png Graphic file (type png)
+
+<use chart_2.png>
+Package pdftex.def Info: chart_2.png used on input line 334.
+(pdftex.def)             Requested size: 256.07741pt x 170.71794pt.
+
+Underfull \hbox (badness 7397) has occurred while \output is active
+[]\OT1/ptm/m/n/8 iSys: Re-vista Bra-si-leira de Sis-te-mas de Informa[][]ao (iS
+ys: Bra-zi-lian Jour-nal of In-for-ma-tion Sys-tems)
+ []
+
+[12 <./ceap-tse.png> <./chart_1.png>] <chart_3.png, id=64, 1204.5pt x 803.0pt>
+File: chart_3.png Graphic file (type png)
+
+<use chart_3.png>
+Package pdftex.def Info: chart_3.png used on input line 352.
+(pdftex.def)             Requested size: 256.07741pt x 170.71794pt.
+
+Underfull \hbox (badness 7397) has occurred while \output is active
+[]\OT1/ptm/m/n/8 iSys: Re-vista Bra-si-leira de Sis-te-mas de Informa[][]ao (iS
+ys: Bra-zi-lian Jour-nal of In-for-ma-tion Sys-tems)
+ []
+
+[13 <./chart_2.png> <./chart_3.png>]
+<sigma.png, id=71, 1371.1225pt x 770.88pt>
+File: sigma.png Graphic file (type png)
+ <use sigma.png>
+Package pdftex.def Info: sigma.png used on input line 369.
+(pdftex.def)             Requested size: 298.75264pt x 167.9591pt.
+
+Underfull \hbox (badness 7397) has occurred while \output is active
+[]\OT1/ptm/m/n/8 iSys: Re-vista Bra-si-leira de Sis-te-mas de Informa[][]ao (iS
+ys: Bra-zi-lian Jour-nal of In-for-ma-tion Sys-tems)
+ []
+
+[14 <./sigma.png>] <collaborate.png, id=75, 1371.1225pt x 770.88pt>
+File: collaborate.png Graphic file (type png)
+
+<use collaborate.png>
+Package pdftex.def Info: collaborate.png used on input line 399.
+(pdftex.def)             Requested size: 298.75264pt x 167.9591pt.
+
+Underfull \hbox (badness 7397) has occurred while \output is active
+[]\OT1/ptm/m/n/8 iSys: Re-vista Bra-si-leira de Sis-te-mas de Informa[][]ao (iS
+ys: Bra-zi-lian Jour-nal of In-for-ma-tion Sys-tems)
+ []
+
+[15 <./collaborate.png>] <partner.png, id=79, 1371.1225pt x 770.88pt>
+File: partner.png Graphic file (type png)
+
+<use partner.png>
+Package pdftex.def Info: partner.png used on input line 412.
+(pdftex.def)             Requested size: 298.75264pt x 167.9591pt.
+ <familia.png, id=80, 1371.1225pt x 770.88pt>
+File: familia.png Graphic file (type png)
+
+<use familia.png>
+Package pdftex.def Info: familia.png used on input line 421.
+(pdftex.def)             Requested size: 256.07741pt x 143.97504pt.
+
+Underfull \hbox (badness 7397) has occurred while \output is active
+[]\OT1/ptm/m/n/8 iSys: Re-vista Bra-si-leira de Sis-te-mas de Informa[][]ao (iS
+ys: Bra-zi-lian Jour-nal of In-for-ma-tion Sys-tems)
+ []
+
+[16 <./partner.png> <./familia.png>] (./sbc-template.bbl
+Underfull \hbox (badness 7397) has occurred while \output is active
+[]\OT1/ptm/m/n/8 iSys: Re-vista Bra-si-leira de Sis-te-mas de Informa[][]ao (iS
+ys: Bra-zi-lian Jour-nal of In-for-ma-tion Sys-tems)
+ []
+
+[17])
+Underfull \hbox (badness 7397) has occurred while \output is active
+[]\OT1/ptm/m/n/8 iSys: Re-vista Bra-si-leira de Sis-te-mas de Informa[][]ao (iS
+ys: Bra-zi-lian Jour-nal of In-for-ma-tion Sys-tems)
+ []
+
+[18] (./sbc-template.aux) ) 
 Here is how much of TeX's memory you used:
- 5521 strings out of 493029
- 73032 string characters out of 6136234
- 170408 words of memory out of 5000000
- 8944 multiletter control sequences out of 15000+600000
+ 5593 strings out of 493029
+ 74207 string characters out of 6136234
+ 170552 words of memory out of 5000000
+ 9008 multiletter control sequences out of 15000+600000
  30694 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,21n,43p,1181b,1510s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,21n,43p,1185b,1510s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/
 8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/
@@ -784,10 +885,10 @@ nts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/ur
 w/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a
 .pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on sbc-template.pdf (11 pages, 684113 bytes).
+Output written on sbc-template.pdf (18 pages, 1216640 bytes).
 PDF statistics:
- 90 PDF objects out of 1000 (max. 8388607)
- 58 compressed objects within 1 object stream
+ 124 PDF objects out of 1000 (max. 8388607)
+ 73 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 81 words of extra memory for PDF output out of 10000 (max. 10000000)
 
